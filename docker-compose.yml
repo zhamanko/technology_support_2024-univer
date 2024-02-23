@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  node-example:
+    build: .
+    volumes:
+      - ./:/app
+    ports:
+      - '3000:${PORTS}'
+    env_file:
+      - .env
+    # command: pm2-docker start server.js -i max
+networks:
+    nodes:
+        external: false

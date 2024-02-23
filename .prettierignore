@@ -1,0 +1,8 @@
+.github
+node_modules
+template
+.env
+.gitignore
+package-lock.json
+package.json
+scheduleClear.js
