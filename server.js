@@ -2,20 +2,21 @@ const express = require('express');
 const cors = require('cors');
 
 require('dotenv').config();
+const { PORT, URL_CLIENT } = require('./config');
 
-const { PORTS, URL_CLIENT } = require('./config');
+const loggerHTTP = require('./utils/logger.utils');
 
 const app = express();
 
 const corsOptions = {
-  origin: [`http://localhost:8080/, ${URL_CLIENT}`],
+  origin: URL_CLIENT,
   credentials: true,
 };
 
+app.use(loggerHTTP);
 app.use(cors(corsOptions));
-
 app.use('/', require('./routes/index'));
 
-app.listen(PORTS, () => {
-  console.log(`Start server port: ${PORTS}`);
+app.listen(PORT, () => {
+  loggerHTTP.logger.info(`Start server port: ${PORT}`);
 });
