@@ -7,7 +7,8 @@
     "start": "node server.js",
     "dev": "node --dev server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "author": "Sega-128",
   "license": "ISC",
