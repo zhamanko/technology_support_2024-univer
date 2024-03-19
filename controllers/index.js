@@ -6,7 +6,7 @@ class Github {
       const { owner, repo, type } = req.query;
 
       if (!owner || !repo || !type) {
-        return res.status(200).json({ error: 'owner, repo , type request field' });
+        return res.status(400).json({ error: 'owner, repo , type request field' });
       }
 
       const response = await GithubService.getTopRepositories({ owner, repo, type });
