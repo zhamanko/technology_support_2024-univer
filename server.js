@@ -3,7 +3,7 @@ const cors = require('cors');
 
 require('dotenv').config();
 
-const { PORTS, URL_CLIENT } = require('./config');
+const { PORT, URL_CLIENT } = require('./config');
 
 const app = express();
 
@@ -16,6 +16,6 @@ app.use(cors(corsOptions));
 
 app.use('/', require('./routes/index'));
 
-app.listen(PORTS, () => {
-  console.log(`Start server port: ${PORTS}`);
+app.listen(PORT, () => {
+  console.log(`Start server port: ${PORT}`);
 });
