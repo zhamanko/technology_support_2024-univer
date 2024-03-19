@@ -6,6 +6,7 @@ const { logger } = require('../utils/logger.utils');
 const RETRY_STATUS_CODES = [403, 500, 503];
 
 const gotClient = got.extend({
+
    prefixUrl: 'https://api.github.com/',
    headers: {
       accept: 'application/vnd.github+json',
