@@ -1,37 +1,39 @@
-const got = require("got");
-const { GITHUB_PERSONAL_TOKEN } = require("../config");
-const { logger } = require("../utils/logger.utils");
+const got = require('got');
+const { GITHUB_PERSONAL_TOKEN } = require('../config');
+const { logger } = require('../utils/logger.utils');
+
 const RETRY_STATUS_CODES = [403, 500, 503];
 const gotClient = got.extend({
- prefixUrl: "https://api.github.com/",
+ prefixUrl: 'https://api.github.com/',
  headers: {
-  accept: "application/vnd.github+json",
-  "User-Agent": "Awesome-Octocat-App-TOP-Contributor",
-  Authorization: "Bearer ${GITHUB_PERSONAL_TOKEN}",
+  accept: 'application/vnd.github+json',
+  'User-Agent': 'Awesome-Octocat-App-TOP-Contributor',
+  Authorization: `Bearer ${GITHUB_PERSONAL_TOKEN}`,
  },
  retry: {
   limit: 3,
-  methods: ["GET", "POST"],
+  methods: ['GET', 'POST'],
   statusCodes: RETRY_STATUS_CODES,
   calculateDelay: (response) => {
    if (RETRY_STATUS_CODES.includes(response.statusCode)) {
-        return 20000 * response.attemptCount;
+    return 20000 * response.attemptCount;
    }
-    return 0;
+   return 0;
   },
  },
 });
 
 class Github {
  constructor() {
-  this.client =  gotClient;
+  this.client = gotClient;
  }
-getContributors({ owner, repo, page = 1, perPage = 100, type }) {
+
+ async getContributors({ owner, repo, page = 1, perPage = 100, type }) {
   try {
    const response = await this.client.get(`repos/${owner}/${repo}/contributors`, {
     searchParams: { per_page: perPage, page, type },
-    method: "GET",
-    responseType: "json",
+    method: 'GET',
+    responseType: 'json',
    });
 
    const data = response.body;
@@ -39,25 +41,26 @@ getContributors({ owner, repo, page = 1, perPage = 100, type }) {
   } catch (error) {
    logger.error(error);
 
-   throw new Error("Service is temporarily unavailable, please try again later");
+   throw new Error('Service is temporarily unavailable, please try again later');
   }
  }
-postGraphQLQuery({ query }) {
+
+ async postGraphQLQuery({ query }) {
   try {
-   const response = await this.client.post("graphql", {
+   const response = await this.client.post('graphql', {
     json: {
-     querys,
+     query,
     },
-        responseType: "json",
+    responseType: 'json',
    });
 
    return response.body;
   } catch (error) {
    logger.error(error);
 
-   throw new Error("Service is temporarily unavailable, please try again later");
+   throw new Error('Service is temporarily unavailable, please try again later');
   }
  }
 }
 
-module.exports = { Github: new Githubs() };
+module.exports = { Github: new Github() };
