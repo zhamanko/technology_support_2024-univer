@@ -7,13 +7,17 @@
     "start": "node server.js",
     "dev": "node --dev server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "precommit": "npm run lint",
+    "prepush": "npm run lint"
   },
   "author": "Sega-128",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
+    "esplint": "^0.10.2",
+    "express": "^4.19.1",
     "fastq": "^1.17.1",
     "got": "^11.2.0",
     "pino-http": "^9.0.0"
