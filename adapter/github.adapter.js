@@ -3,7 +3,7 @@ const got = require('got');
 const { GITHUB_PERSONAL_TOKEN } = require('../config');
 const { logger } = require('../utils/logger.utils');
 
-const RETRY_STATUS_CODES = [403, 500, 503];
+const RETRY_STATUS_CODES = [ 403, 500, 503 ];
 
 const gotClient = got.extend({
  prefixUrl: 'https://api.github.com/',
@@ -43,7 +43,7 @@ class Github {
   } catch (error) {
    logger.error(error);
 
-   throw new Error('Service is temporarily unavailable, please try again later');
+   throw new Error("Service is temporarily unavailable, please try again later");
   }
  }
 
@@ -60,7 +60,7 @@ class Github {
   } catch (error) {
    logger.error(error);
 
-   throw new Error('Service is temporarily unavailable, please try again later');
+   throw new Error("Service is temporarily unavailable, please try again later");
   }
  }
 }
