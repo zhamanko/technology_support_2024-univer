@@ -1,3 +1,5 @@
+Прізвище -> ""
+
 # How to start ?
 1. env.example -> .env Add all field.
 2. GITHUB_PERSONAL_TOKEN get with [github settings](https://github.com/settings/tokens?type=beta)
