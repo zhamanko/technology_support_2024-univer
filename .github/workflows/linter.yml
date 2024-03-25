@@ -14,17 +14,5 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '20'
-
-      - name: Check if node_modules exists
-        run: test -d node_modules || echo 'node_modules not found'
-
-      - name: Install dependencies
-        if: steps.node_modules.outputs.exit-code != 0
-        run: npm install
-
       - name: Run linter
         run: npm run lint
