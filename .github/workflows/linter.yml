@@ -8,7 +8,7 @@ on:
 jobs:
   lint:
     name: Run linter
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout repository
@@ -17,9 +17,13 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '20'
+
+      - name: Check if node_modules exists
+        run: test -d node_modules || echo 'node_modules not found'
 
       - name: Install dependencies
+        if: steps.node_modules.outputs.exit-code != 0
         run: npm install
 
       - name: Run linter
